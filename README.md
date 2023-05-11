@@ -25,31 +25,41 @@ of change in this domain of tech. Hence, these instructions should not be follow
 blindly. Your ingenuity will likely be required to see your way through to the
 end...to a functional development environment.
 
-DISCLAIMER: Since WSL2 is rather new and still somewhat experimental, and not
+DISCLAIMER: 
+
+Since WSL2 is rather new and still somewhat experimental, and not
 generally considered as straightforward or robust for AI / ML development as 
 a native, truly bare metal, non-virtualized Ubuntu environment, I cannot guarantee 
 the following will work exactly as you might hope. Things herein worked as of
 of May 2023.
 
-ASSUMPTIONS: A high-performance gaming laptop with a single Nvidia GeForce 
-RTX GPU chip with Windows as the sole operating system. 
+ASSUMPTIONS: 
 
-REASON: Dual booting set-ups are a bit of a pain. WSL seems like a convenient
+* A high-performance gaming laptop with a single Nvidia GeForce 
+RTX GPU chip with Windows as the sole operating system.
+* A nominal degree of comfort with tweaking Windows and/or Ubuntu from the 
+command line
+* VSCode for the IDE
+* Familiarity with Python, Bash, and Git
+
+REASON: 
+
+Dual booting set-ups are a bit of a pain. WSL seems like a convenient
 compromise. Remains to be seen.
 
 The gear I used...
 
-	Windows 11
-	Processor: 12th Gen Intel(R) Core(TM) i7-12700H   2.70 GHz
-	Memory: 1TB plus 16.0 GB RAM
+* Windows 11
+* Processor: 12th Gen Intel(R) Core(TM) i7-12700H   2.70 GHz
+* Memory: 1TB plus 16.0 GB RAM
 	
 The following were successfully installed via these instructions...
 
-	Python version = 3.10.6
-	CUDA version = 12.1.66
-	RAPIDS
-	nvidia-tensorrt = 8.6.1
-	Tensorflow version = 2.12.0
+* Python version = 3.10.6
+* CUDA version = 12.1.66
+* RAPIDS
+* TensorRT version = 8.6.1
+* Tensorflow version = 2.12.0
 		
 		
 		
@@ -77,58 +87,80 @@ And...
 
 
 The following bullets suggest HOW to check versioning or to confirm installation 
-of the respective resources and/or dependencies as you proceed...
+of the respective resources and/or dependencies as you proceed. These items will
+become more salient as you install each.
 	
 * For Windows version:
 
-	About your PC
+	Just use "About your PC"
 	
 * For Ubuntu version (on WSL):
 
+	'''
 	cat /proc/version
+	'''
 	
 * For Enviornment Variables via a BASH terminal:
 
+	'''
 	printenv PATH
+	'''
 	
 * For Python version:
 
+	'''
 	python --version
+	'''
 
 	...and/or...
 
+	'''
 	ls /usr/bin/python*
+	'''
 
 * Nvidia drivers are located in:
 
+	'''
 	C:\Windows\System32\lxss\lib
-	
+	'''
+
 * For Nvidia driver and CUDA version:
 
+	'''
 	nvidia-smi
-	
+	'''
+
 * For CUDA Toolkit:
 
+	'''
 	nvcc -V
+	'''
 	
 * For CUDA drivers:
 
+	'''
 	echo $LD_LIBRARY_PATH
-	
+	'''
+
 * For RAPIDS
 
+	'''
 	conda info --envs
-	
+	'''
+
 	...and...
 
+	'''
 	python3 -c "import cudf; print(cudf.Series([1, 2, 3]))"
-	
+	'''
+
 * For TensorRT (optional):
 
+	'''
 	python3 -c "import tensorrt; print(tensorrt.__version__); assert tensorrt.Builder(tensorrt.Logger())"	
-	
-* For Tensorflow:
-				
+	'''
+
+* For Tensorflow:		
 
 	The following commands can be executed in the Python interpretor or 
 	a Juptyer Notebook only after activating the virtualenv into which 
@@ -136,22 +168,27 @@ of the respective resources and/or dependencies as you proceed...
 
 	Verify CPU set-up...
 	
+		'''
 		python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
-		
+		'''
+
 	Verify GPU set-up...
 	
+		'''
 		python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
-			
+		'''
+
 	Or you return a more simple confirmation via running the following Python 
 	if / else statement...
 		
+		'''
 		import tensorflow as tf
 		
 		if tf.config.list_physical_devices('GPU'):    
 			print("Tensorflow is using a GPU")
 		else: 
 				print("Tensorflow is not using a GPU")
-
+		'''
 
 
 ## BE MINDFUL OF THE OS IN WHICH YOU ARE WORKING
@@ -185,11 +222,15 @@ being used...
 
 Example:
 
+	'''
 	mkvirtualenv test-ubuntu
+	'''
 
 Not simply the more generic name:
 
+	'''
 	mkvirtualenv test
+	'''
 
 
 	
@@ -211,11 +252,15 @@ Upon configuring WSL via any prompts, set the user and password for UNIX
 Note: in Windows, the default path when firing up an Ubuntu terminal within 
 WSL (via VSCode, for example) will be...
 
+	'''
 	/mnt/c/Users/<username>
+	'''
 	
 Not...
 
+	'''
 	/home/<username> 
+	'''
 	
 ...as it would be naturally in a native Ubuntu instance.
 	
@@ -229,6 +274,7 @@ in the terminal selector on the right side of VSCode.
 You can try including or adjusting the cwd param in your Ubuntu specific profile 
 definition in the windows profile settings as follows. However, YMMV...
 
+	'''
 	"terminal.integrated.profiles.windows": {
 		"PowerShell": {
 			"source": "PowerShell",
@@ -250,16 +296,15 @@ definition in the windows profile settings as follows. However, YMMV...
 			"args": ["-e", "bash"],
 			"cwd": "/home/<your_username>"
 		}
-	
+	'''
 
 	
 	
 ## VIRTUALIZATION (Windows)...
 	
-Install Docker on Windows desktop...
-
-NOTE: We are not leveraging Docker for Tensorflow in these instructions. Including 
-the following links for ancillary purposes. You'll need it eventually.
+NOTE: We are not leveraging Docker for Tensorflow in these instructions. I am 
+including the following links for ancillary purposes. You'll need it eventually.
+The following sets up Docker Desktop...
 
 [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
@@ -271,31 +316,37 @@ AND
 
 ## CONFIGURE VSCODE (Windows; possibly optional)...
 	
-	[Install VSCode Remote Development Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
+[Install VSCode Remote Development Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
 
 
 
 ## INSTALL AND CONFIGURE GIT
 
+Git is an essential utility for 
+
 ...on Windows
 
-	[Install Git](https://git-scm.com/download/win) 
-		
-	You may need to update your PATH. Confirm where the executable installed 
-	first:
+[Install Git](https://git-scm.com/download/win) 
 	
-		PATH = C:\Users\<username>\AppData\Local\GitHub\PortableGit_<guid>\cmd\git.exe
-		
-	Optional: [Posh-Git](https://github.com/dahlbyk/posh-git)
-		
-		scoop bucket add extras
-		scoop install posh-git
-		Add-PoshGitToProfile -AllUsers -AllHosts	
-		
+You may need to update your PATH. Confirm where the executable installed 
+first:
+
+	PATH = C:\Users\<username>\AppData\Local\GitHub\PortableGit_<guid>\cmd\git.exe
+	
+Optional: [Posh-Git](https://github.com/dahlbyk/posh-git)
+	
+	'''
+	scoop bucket add extras
+	scoop install posh-git
+	Add-PoshGitToProfile -AllUsers -AllHosts	
+	'''
+
 ...on Ubuntu
 
-		sudo apt install git-all
-		
+	'''
+	sudo apt install git-all
+	'''
+	
 Once installed, you'll need configure Git via the git config command, as well
 as set up .ssh between your remote origin and your local repo.
 
@@ -305,32 +356,36 @@ instructions here.)
 
 If you're truly high speed, you'll want to install Git Flow...
 
+	'''
 	sudo apt install git-flow
-	
+	'''
 
 
 ## INSTALL PANDAS, NUMPY, SCIPY, MATPLOTLIB, JUPYTERLAB
 
-Pandas: Data manipulation and analysis, powerful for working with tabular data 
+What is this stuff?
+
+* Pandas: Data manipulation and analysis, powerful for working with tabular data 
 and time series data.
 
-NumPy: A Python library for numerical computations, powerful for numerical 
+* NumPy: A Python library for numerical computations, powerful for numerical 
 operations on large data sets.
 
-SciPy: Another Python library for scientific computing and technical computing, 
+* SciPy: Another Python library for scientific computing and technical computing, 
 powerful for optimization, signal processing, and image processing.
 
-Matplotlib: Data visualization, powerful for plotting graphs, charts, and histograms 
+* Matplotlib: Data visualization, powerful for plotting graphs, charts, and histograms 
 in AI and machine learning.
 
-JupyterLab: An interactive development environment using "notebooks" in the 
+* JupyterLab: An interactive development environment using "notebooks" in the 
 browser for data exploration, prototyping, collaboration, and documentation.
 
-(You might also want to install Scikit-Learn. Happens in these docs via the 
+(You might also want to install Scikit-Learn. We do so in these docs via the 
 RAPIDS installation.)
 	
 ...on Ubuntu
 
+	'''
 	sudo apt install python3 python3-pip python3-venv ipython3
 	cd ~
 	nano .bashrc
@@ -342,7 +397,8 @@ RAPIDS installation.)
 	pip install jupyterlab-spellchecker
 	pip install jupyterlab-code-formatter
 	pip install black isort
-	
+	'''
+
 (FWIW: Python3 comes out of the box / batteries included on Ubuntu.)
 	
 ...on Windows
@@ -350,14 +406,18 @@ RAPIDS installation.)
 Install Python on Ubuntu first--in the usual way. Once that's done, check the 
 version on Ubuntu...
 	
+	'''
 	python3 --version
+	'''
 
 ...then use the installer for the same version from the python.org website.
 
 Adjust the PATH env var in Windows accordingly.
 
+	'''
 	<full_path>/PythonXX
 	<full_path>/PythonXX/Scripts
+	'''
 
 ...etc.
 
@@ -369,7 +429,9 @@ Install Numpy etc. only if req'd for your use case.
 
 ...on Windows
 
+	'''
 	C:\Users\<username>\AppData\Local\Programs\Python\Python310
+	'''
 
 As mentioned above, adjust the PATH env var in Windows according.
 
@@ -402,7 +464,7 @@ for all envs regardless of whether or not we're in Windows or Ubuntu.
 
 In other words, all artifacts fors virtualenv will be stored under the 
 C:\Users\<username>\Envs directory in Windows and the mounted path to this
-	directory (/mnt/c/Users/<username>/Envs) in Ubuntu.
+directory (/mnt/c/Users/<username>/Envs) in Ubuntu.
 
 Caveat: creating a new env from within Ubuntu will be very slow.
 
@@ -410,7 +472,9 @@ Advantage: no need to .gitignore envs; simply pip freeze requirements.
 
 ...on Windows
 
+	'''
 	pip install virtualenv virtualenvwrapper-win
+	'''
 
 If your PATH in Windows env vars is set up correctly, after installation, you'll 
 be able to create a new virtualenv simply with "mkvirtualenv".
@@ -420,11 +484,13 @@ to reinstall virtualenvwrapper-win for the "workon" command to function properly
 
 Set workon in PowerShell (optional; may not be req'd)...
 
+	'''
 	get-executionpolicy --> should be signed
 
 	function workon ($env) {
 			& $env:WORKON_HOME\$env\Scripts\activate.ps1
 	}
+	'''
 
 ...on Ubuntu
 
@@ -432,15 +498,18 @@ Set workon in PowerShell (optional; may not be req'd)...
 
 [Installing Virtualenvwrapper on Windows](https://sachinjose31.medium.com/virtual-environments-with-virtualenvwrapper-for-windows-c535c2a0de8c)
 
-		pip install virtualenvwrapper
-		cd ~
-		nano .bashrc
+	'''
+	pip install virtualenvwrapper
+	cd ~
+	nano .bashrc
 
-		export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-		export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-		export WORKON_HOME = /mnt/c/Users/<username>/Envs
-		export PROJECTS_HOME = $HOME/projects
-		source /usr/local/bin/virtualenvwrapper.sh
+	# paste the following; change the username as req'd
+	export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+	export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+	export WORKON_HOME = /mnt/c/Users/<username>/Envs
+	export PROJECTS_HOME = $HOME/projects
+	source /usr/local/bin/virtualenvwrapper.sh
+	'''
 
 Again, after you source the ,bashrc, when creating a virtualenv from within 
 Ubuntu, the artifacts for the virtualenv will be stored under the /mnt/c/Users/<yourname>/Envs 
@@ -502,6 +571,7 @@ Install CUDA on WSL...
 
 [Confirm the correct CUDA version here](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_local)
 	
+	'''
 	wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
 	sudo mv cuda-wsl-ubuntu.pin /etc/apt/preferences.d/cuda-repository-pin-600
 	wget https://developer.download.nvidia.com/compute/cuda/12.1.0/local_installers/cuda-repo-wsl-ubuntu-12-1-local_12.1.0-1_amd64.deb
@@ -509,6 +579,7 @@ Install CUDA on WSL...
 	sudo cp /var/cuda-repo-wsl-ubuntu-12-1-local/cuda-*-keyring.gpg /usr/share/keyrings/
 	sudo apt-get update
 	sudo apt-get -y install cuda
+	'''
 	
 If installed correctly, the "nividia-msi" command will work as expected. 
 
@@ -516,9 +587,10 @@ The "nvcc --version" command may not work as expected, in which case you may
 need to update your .bashrc file with the 
 following export statements...
 	
+	'''
 	export PATH=/usr/local/cuda/bin:$PATH
 	export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-
+	'''
 
 
 ## INSTALL MINICONDA
@@ -531,8 +603,10 @@ Nvidia recommends at least Miniconda to use their RAPIDs interface for ML / AI.
 	
 Install Miniconda (in Ubuntu)...
 
+	'''
 	wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 	bash Miniconda3-latest-Linux-x86_64.sh
+	'''
 
 Customize Conda and Run the Install. Use the terminal window to finish installation. 
 Nvidia recommends enabling conda-init.
@@ -540,30 +614,41 @@ Nvidia recommends enabling conda-init.
 If you'd prefer that conda's base environment not be activated on startup, set 
 the auto_activate_base parameter to false:
 
+	'''
 	conda config --set auto_activate_base false
-	
+	'''
+
 Env artifacts stored in...
 
+	'''
 	/home/<username>/miniconda3/bin/conda-env
+	'''
 
 List Conda envs via...
 
+	'''
 	conda env list
-	
+	'''
+
 In WSL, activate a Conda env via...
 
+	'''
 	conda activate <env_name>
-	
+	'''
+
 Deactivate via...
 
+	'''
 	conda deactivate
-	
+	'''
+
 Update the resolver if you want to install RAPIDS...
 	
+	'''
 	conda update -n base conda
 	conda install -n base conda-libmamba-solver
 	conda config --set solver libmamba
-	
+	'''
 	
 
 ## INSTALL RAPIDS (optional)
@@ -587,30 +672,32 @@ May not be compatible with some versions of Jupyter.
 RAPIDS also has a few additional dependencies (some of which we installed in 
 an earlier step), including...
 
-	scipy
-	matplotlib!=3.6.1,>=3.1
-	pytz>=2020.1
-	packaging
-	protobuf==4.21
-	numpy<1.24,>=1.18
-	numba
+* scipy
+* matplotlib!=3.6.1,>=3.1
+* pytz>=2020.1
+* protobuf==4.21
+* numpy<1.24,>=1.18
 	
 If something is missing, when you try to confirm your RAPIDS install, it'll 
 tell you.
 	
 Provided needed dependencies are installed...
 
+	'''
 	pip install cudf-cu11 dask-cudf-cu11 --extra-index-url=https://pypi.nvidia.com
 	pip install cuml-cu11 --extra-index-url=https://pypi.nvidia.com
 	pip install cugraph-cu11 --extra-index-url=https://pypi.nvidia.com
-	
+	'''
+
 cuDF is a Python library that provides a pandas-like DataFrame API on top of 
 Apache Arrow on the GPU. It provides a way to manipulate and analyze large datasets 
 using the power of NVIDIA GPUs.
 	
 Then...
 
+	'''
 	conda create -n rapids-23.04 -c rapidsai -c conda-forge -c nvidia rapids=23.04
+	'''
 
 The standard docs articulate how to triage potential error messages.
 
@@ -629,26 +716,32 @@ CAUTION: DO NOT INSTALL REGULAR DRIVERS...
 	
 Installation...
 
+	'''
 	pip install nvidia-cudnn-cu11==8.6.0.163
 	
 	sudo apt-key del 7fa2af80
-	
+	'''
 		
 Configure the system paths. You can do it with following command everytime your 
 start a new terminal after activating your conda environment.
 
+	'''
 	CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib
-		
+	'''
+
 For your convenience it is recommended that you automate it with the following 
 commands. The system paths will be automatically configured when you activate 
 this conda environment.
 
+	'''
+	# You may need to refactor to remove the linebreaks...
 	mkdir -p $CONDA_PREFIX/etc/conda/activate.d
 	echo 'CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))' >> \
 	$CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 	echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib' >> \ 
 	$CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+	'''
 	
 The activate.d directory--and corollary deactivate.d directory--contain shell 
 scripts that are evoked when environment is activated or deactivated, respectively. 
@@ -665,19 +758,25 @@ Navigate to the miniconda directory...
 
 Create a /conda/activate.d subdirectory if it does not exist.
 
+	'''
 	~/miniconda3/etc/conda/activate.d
-		
+	'''
+
 You can stuff shell scripts in here that will impact every Conda environment, 
 globally--i.e., the "base" Conda env.
 
 Create a global shell script within it...
 
+	'''
 	sudo nano global_env_vars.sh
-	
+	'''
+
 ...and, within it, add the following commands:
 
+	'''
 	CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib
+	'''
 
 ...save the file. Now the necessary env vars for Tensorflow will be set with 
 the creation of every Conda env.
@@ -699,31 +798,39 @@ their trained models to edge devices, data centers, and the cloud.
 
 Installation...
 
+	'''
 	pip install --upgrade setuptools pip
 	pip install nvidia-pyindex
-	
+	'''
+
 Check for desired specific tensorrt-versions -> pip install nvidia-tensorrt==
 
-	py3.10 -> available from 8.4.0.+
-	py3.9 -> available from 8.0.+
-	py3.8 -> available from 7.2.2.+
+* py3.10 -> available from 8.4.0.+
+* py3.9 -> available from 8.0.+
+* py3.8 -> available from 7.2.2.+
 	
 Install your favorite version e.g. -> pip install nvidia-tensorrt==7.2.3.4
 
-Verify inmstallation...
+Verify installation...
 
+	'''
 	python3 -c "import tensorrt; print(tensorrt.__version__); assert tensorrt.Builder(tensorrt.Logger())"
-	
+	'''
+
 Configure the system paths once again as before to contain tensorrt path:
 
+	'''
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/python3.8/site-packages/tensorrt/
+	'''
 
 ...or with recommended automation:
 
+	'''
+	# You may need to refactor to remove the linebreaks...
 	echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/python3.8/site-packages/tensorrt/' \
 	>> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/python3.8/site-packages/tensorrt/
-
+	'''
 
 ## INSTALL TensorFlow
 
@@ -736,10 +843,9 @@ the specific environ.
 
 Doublecheck versions of required dependencies, then...
 
+	'''
 	pip install tensorflow==2.12.0
-
-Confirm installation via 
-
+	'''
 
 	
 ## TROUBLESHOOTING
@@ -749,6 +855,7 @@ Check to see if the appropriate Nvidia drivers are installed...
 In Windows check under C:\Windows\System32\lxss\lib if the CUDA libs are 
 missing:
 
+'''
 Directory: C:\Windows\System32\lxss\lib
 
 	Mode                 LastWriteTime         Length Name
@@ -770,7 +877,7 @@ Directory: C:\Windows\System32\lxss\lib
 	-a---          11/23/2022  1:11 AM          68560 libnvoptix.so.1
 	-a---          11/23/2022  1:11 AM       60186056 libnvwgf2umx.so
 	-a---          11/23/2022  1:11 AM         630224 nvidia-smi
-
+'''
 
 ## TODO
 
