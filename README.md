@@ -2,13 +2,24 @@
 
 	The utilities for AI and ML are constantly evolving and changing.
 	
-	Versioning alignment between dependencies--i.e., between tools and libraries that rely on one another--is extremely important, and things fall out of sync easily. Things are even more non-standard / experimental with regard to leveraging these tools on WSL.
+	Versioning alignment between dependencies--i.e., between tools and libraries 
+	that rely on one another--is extremely important, and things fall out of sync 
+	easily. Things are even more non-standard / experimental with regard to leveraging 
+	these tools on WSL.
 	
-	Where salient, I've included links for the installation of each respective tool, but I expect instructions within any of these to essentially inadvertantly suggest things that will break if you follow them blindly--due to aforementioned breaking changes to hardware and software versioning.
+	Where salient, I've included links for the installation of each respective tool, 
+	but I expect instructions within any of these to essentially inadvertantly suggest 
+	things that will break if you follow them blindly--due to aforementioned breaking 
+	changes to hardware and software versioning.
 	
-	DISCLAIMER: since WSL2 is rather new and still experimental, and not generally considered as straightforward or robust for AI / ML development as a native, bare metal, non-virtualized Ubuntu environment, I cannot guarantee the following will work exactly as you might hope.
+	DISCLAIMER: since WSL2 is rather new and still experimental, and not generally 
+	considered as straightforward or robust for AI / ML development as a native, 
+	bare metal, non-virtualized Ubuntu environment, I cannot guarantee the following 
+	will work exactly as you might hope.
 	
-	I ran the following on a high-performance gaming laptop with a Nvidia GeForce RTX GPU chip with Windows as the sole operating system. I wanted the convenience of not having to reboot to take advantage of a dual boot set up. 
+	I ran the following on a high-performance gaming laptop with a Nvidia GeForce 
+	RTX GPU chip with Windows as the sole operating system. I wanted the convenience 
+	of not having to reboot to take advantage of a dual boot set up. 
 	
 	The gear I used...
 	
@@ -45,7 +56,8 @@
 ## CONFIRMING VERSIONS AND INSTALLATIONS
 
 
-	The following bullets suggest HOW to check versioning or to confirm installation of the respective resources and/or dependencies as you proceed...
+	The following bullets suggest HOW to check versioning or to confirm installation 
+	of the respective resources and/or dependencies as you proceed...
 		
 	* For Windows version:
 	
@@ -100,7 +112,9 @@
 		Table of compatible dependencies here:
 		
 			https://www.tensorflow.org/install/source#linux
-			The following commands can be executed in the Python interpretor or a Juptyer Notebook only after activating the virtualenv into which TensorFlow was installed...
+			The following commands can be executed in the Python interpretor or 
+			a Juptyer Notebook only after activating the virtualenv into which 
+			TensorFlow was installed...
 		
 			Verify CPU set-up...
 			
@@ -110,7 +124,8 @@
 			
 				python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 				
-		Or you return a more simple confirmation via running the following Python if / else statement...
+		Or you return a more simple confirmation via running the following Python 
+		if / else statement...
 			
 			import tensorflow as tf
 			
@@ -123,15 +138,32 @@
 
 ## BE MINDFUL OF THE OS IN WHICH YOU ARE WORKING
 
-	The following instructions essentially guide you through the installation of two different versions of Python, two different versions of Pip, and two different versions of Virtualenv...each being set-up in the two different operating systems (Windows, and Ubuntu on WSL) respectively. To the degree possible, you should seek to keep versions on each operating system up to date and in sync with one another. Even so: best practice dictates one develops on / in the same environment into which they intend to deploy any solution. The most common way to normalize environs across different machines and different devs is: containerization. That being articulated: the instructions herein are primarily focused on and prioritize getting things set-up on Ubuntu in WSL.
+	The following instructions essentially guide you through the installation of 
+	two different versions of Python, two different versions of Pip, and two different 
+	versions of Virtualenv...each being set-up in the two different operating systems 
+	(Windows, and Ubuntu on WSL) respectively. To the degree possible, you should 
+	seek to keep versions on each operating system up to date and in sync with one 
+	another. Even so: best practice dictates one develops on / in the same environment 
+	into which they intend to deploy any solution. The most common way to normalize 
+	environs across different machines and different devs is: containerization. That 
+	being articulated: the instructions herein are primarily focused on and prioritize 
+	getting things set-up on Ubuntu in WSL.
 	
-	Only the directory for virtualenv artifacts remains the same across both operating systems. (I'm not certain if that's actually ideal. Probably not.)
+	Only the directory for virtualenv artifacts remains the same across both operating 
+	systems. (I'm not certain if that's actually ideal. Probably not.)
 	
-	The workon command used via virtualenvwrapper will only work in Ubuntu (WSL) ~after~ the first environment is created. That is: in Ubuntu, if memory serves correctly, you must first evoke the mkvirtualenv command before workon will return anything at all.
+	The workon command used via virtualenvwrapper will only work in Ubuntu (WSL) 
+	~after~ the first environment is created. That is: in Ubuntu, if memory serves 
+	correctly, you must first evoke the mkvirtualenv command before workon will 
+	return anything at all.
 	
-	If you create a virtualenv in Ubuntu, evoke it only from Ubuntu. If you try to evoke a virtualenv created in Ubuntu via the workon command from within PowerShell, it'll complain "doesn't contain a virtualenv (yet)."
+	If you create a virtualenv in Ubuntu, evoke it only from Ubuntu. If you try 
+	to evoke a virtualenv created in Ubuntu via the workon command from within 
+	PowerShell, it'll complain "doesn't contain a virtualenv (yet)."
 
-	To avoid confusion, I highly recommend including some identifier when naming your environments just to doubly make sure you're clear about which OS is being used...
+	To avoid confusion, I highly recommend including some identifier when naming 
+	your environments just to doubly make sure you're clear about which OS is 
+	being used...
 	
 	Example:
 	
@@ -155,9 +187,11 @@
 		
 		Not yet recommended: installing Ubuntu from a bootable thumb drive.
 		
-		Upon configuring WSL via any prompts, set the user and password for UNIX (i.e., for Ubuntu within the WSL).
+		Upon configuring WSL via any prompts, set the user and password for UNIX 
+		(i.e., for Ubuntu within the WSL).
 
-	Note: in Windows, the default path when firing up an Ubuntu terminal within WSL (via VSCode, for example) will be...
+	Note: in Windows, the default path when firing up an Ubuntu terminal within 
+	WSL (via VSCode, for example) will be...
 	
 		/mnt/c/Users/<username>
 		
@@ -167,11 +201,15 @@
 		
 	...as it would be naturally in a native Ubuntu instance.
 		
-	You can try to reconfigure this in settings.json for the cwd settings--so that launching an Ubuntu terminal will automatically start in your preferred working directory within Ubuntu. That may work when connecting to the Ubuntu instance remotely (via the gear icon in the lower right of VSCode), but it will basically break 
-	your ability to reopen Powershell from the dropdown of terminal options in the terminal selector on the right side of VSCode. 
+	You can try to reconfigure this in settings.json for the cwd settings--so that 
+	launching an Ubuntu terminal will automatically start in your preferred working 
+	directory within Ubuntu. That may work when connecting to the Ubuntu instance 
+	remotely (via the gear icon in the lower right of VSCode), but it will basically 
+	break your ability to reopen Powershell from the dropdown of terminal options 
+	in the terminal selector on the right side of VSCode. 
 	
-	You can try including or adjusting the cwd param in your Ubuntu specific profile definition 
-	in the windows profile settings as follows. However, YMMV...
+	You can try including or adjusting the cwd param in your Ubuntu specific profile 
+	definition in the windows profile settings as follows. However, YMMV...
 	
 		"terminal.integrated.profiles.windows": {
 			"PowerShell": {
@@ -202,7 +240,8 @@
 	
 	Install Docker on Windows desktop...
 	
-	NOTE: We are not leveraging Docker for Tensorflow in these instructions. Including the following link for ancillary purposes. You'll need it eventually.
+	NOTE: We are not leveraging Docker for Tensorflow in these instructions. Including 
+	the following link for ancillary purposes. You'll need it eventually.
 	
 	
 		https://www.docker.com/products/docker-desktop/ AND https://docs.docker.com/desktop/windows/wsl/)
@@ -223,7 +262,12 @@
 	
 		Install Git 
 		
-			https://git-scm.com/download/win) ( PATH = C:\Users\<username>\AppData\Local\GitHub\PortableGit_<guid>\cmd\git.exe
+			https://git-scm.com/download/win) 
+			
+		You may need to update your PATH. Confirm where the executable installed 
+		first:
+		
+			PATH = C:\Users\<username>\AppData\Local\GitHub\PortableGit_<guid>\cmd\git.exe
 			
 		Optional: Posh-Git 
 		
@@ -237,9 +281,12 @@
 
 			sudo apt install git-all
 			
-	Once installed, you'll need configure Git, and to set up .ssh between your remote origin and your local repo.
+	Once installed, you'll need configure Git via the git config command, as well
+	as set up .ssh between your remote origin and your local repo.
 	
-	(This is relatively standard practice, and easy enough to learn how to do via Google and/or StackOverflow. For purposes of concision, not including those instructions here.)
+	This is relatively standard practice, and easy enough to learn how to do via 
+	Google and/or StackOverflow. For purposes of concision, not including those 
+	instructions here.)
 
 	If you're truly high speed, you'll want to install Git Flow...
 	
@@ -250,17 +297,23 @@
 ## INSTALL PANDAS, NUMPY, SCIPY, MATPLOTLIB, JUPYTERLAB
 
 
-	Pandas: Data manipulation and analysis, powerful for working with tabular data and time series data.
+	Pandas: Data manipulation and analysis, powerful for working with tabular data 
+	and time series data.
 
-	NumPy: A Python library for numerical computations, powerful for numerical operations on large data sets.
+	NumPy: A Python library for numerical computations, powerful for numerical 
+	operations on large data sets.
 
-	SciPy: Another Python library for scientific computing and technical computing, powerful for optimization, signal processing, and image processing.
+	SciPy: Another Python library for scientific computing and technical computing, 
+	powerful for optimization, signal processing, and image processing.
 
-	Matplotlib: Data visualization, powerful for plotting graphs, charts, and histograms in AI and machine learning.
+	Matplotlib: Data visualization, powerful for plotting graphs, charts, and histograms 
+	in AI and machine learning.
 
-	JupyterLab: An interactive development environment using "notebooks" in the browser for data exploration, prototyping, collaboration, and documentation.
+	JupyterLab: An interactive development environment using "notebooks" in the 
+	browser for data exploration, prototyping, collaboration, and documentation.
 	
-	(You might also want to install Scikit-Learn. Happens in these docs via the RAPIDS installation.)
+	(You might also want to install Scikit-Learn. Happens in these docs via the 
+	RAPIDS installation.)
 		
 	...on Ubuntu
 	
@@ -306,15 +359,20 @@
 	
 	As mentioned above, adjust the PATH env var in Windows according.
 
-	Also: ensure this is the default interpreter path under the "Python" settings in VSCode.
+	Also: ensure this is the default interpreter path under the "Python" settings 
+	in VSCode.
 
-	You may need to reboot VSCode and/or your actual machine to see evoke Python correctly from the command line of any IDE.
+	You may need to reboot VSCode and/or your actual machine to see evoke Python 
+	correctly from the command line of any IDE.
 
-	I have the PATH set-up so that Python 3 will be invoked at the command line simply by typing "python".
+	I have the PATH set-up so that Python 3 will be invoked at the command line 
+	simply by typing "python".
 
-	If want to be able to switch between Python 3.x and Python 2.7, you may need to adjust your PATH values accordingly.
+	If want to be able to switch between Python 3.x and Python 2.7, you may need 
+	to adjust your PATH values accordingly.
 
-	There are several utils and/or ways of managing things when you have multiple versions of Python installed on your system. One such solution is here:
+	There are several utils and/or ways of managing things when you have multiple 
+	versions of Python installed on your system. One such solution is here:
 
 		https://www.fosslinux.com/39384/switching-between-python-2-and-3-versions-on-ubuntu-20-04.htm
 
@@ -322,11 +380,17 @@
 
 ## SET UP VIRTUALENV AND VIRTUALENVWRAPPER
 
-	VSCode's setting for virtual environment directories out of the box is the project directory: ${workspaceFolder}/.env
-	We're going to set the same centralized directory for all envs--i.e., on directory for all envs regardless of whether or not we're in Windows or Ubuntu
-	In other words, all artifacts fors virtualenv will be stored under the C:\Users\<username>\Envs directory in Windows and the mounted path to this directory (/mnt/c/Users/<username>/Envs) in Ubuntu
+	VSCode's setting for virtual environment directories out of the box is the 
+	project directory: ${workspaceFolder}/.env
 	
-	Caveat: creating a new env from within Ubuntu will be very slow
+	We're going to set the same centralized directory for all envs--i.e., on directory 
+	for all envs regardless of whether or not we're in Windows or Ubuntu.
+
+	In other words, all artifacts fors virtualenv will be stored under the 
+	C:\Users\<username>\Envs directory in Windows and the mounted path to this
+	 directory (/mnt/c/Users/<username>/Envs) in Ubuntu.
+	
+	Caveat: creating a new env from within Ubuntu will be very slow.
 	
 	Advantage: no need to .gitignore envs; simply pip freeze requirements.
 
@@ -334,9 +398,11 @@
     
 		pip install virtualenv virtualenvwrapper-win
 	
-	If your PATH in Windows env vars is set up correctly, after installation, you'll be able to create a new virtualenv simply with "mkvirtualenv".
+	If your PATH in Windows env vars is set up correctly, after installation, you'll 
+	be able to create a new virtualenv simply with "mkvirtualenv".
 	
-	If you upgraded Python after installing virtualenvwrapper-win, you may need to reinstall virtualenvwrapper-win for the "workon" command to function properly.
+	If you upgraded Python after installing virtualenvwrapper-win, you may need 
+	to reinstall virtualenvwrapper-win for the "workon" command to function properly.
 	
 		Set workon in PowerShell (optional; may not be req'd)...
 
@@ -349,11 +415,11 @@
 	...on Ubuntu
 	
 			https://opensource.com/article/21/2/python-virtualenvwrapper
-			https://sachinjose31.medium.com/virtual-environments-with-virtualenvwrapper-for-windows-c535c2a0de8c and 
+			https://sachinjose31.medium.com/virtual-environments-with-virtualenvwrapper-for-windows-c535c2a0de8c 
 
-		pip install virtualenvwrapper
-		cd ~
-		nano .bashrc
+			pip install virtualenvwrapper
+			cd ~
+			nano .bashrc
 
 			export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 			export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
@@ -361,9 +427,14 @@
 			export PROJECTS_HOME = $HOME/projects
 			source /usr/local/bin/virtualenvwrapper.sh
 
-    Again, after you source the ,bashrc, when creating a virtualenv from within Ubuntu, the artifacts for the virtualenv will be stored under the /mnt/c/Users/<yourname>/Envs directory (i.e., in Windows--essentially the same as the C:\Users\<username>\Envs directory).
-    If all goes well, environment creation may be evoked via virtualenvwrapper's mkvirtualenv command. (Again, takes awhile. Be patient.)
-	After you clone a repo, and create the associated virtualenv, then pin the env to the repo's directory via virtualenvwrapper's setvitualenvproject command.
+    Again, after you source the ,bashrc, when creating a virtualenv from within 
+	Ubuntu, the artifacts for the virtualenv will be stored under the /mnt/c/Users/<yourname>/Envs 
+	directory (i.e., in Windows--essentially the same as the C:\Users\<username>\Envs directory).
+    
+	If all goes well, environment creation may be evoked via virtualenvwrapper's 
+	mkvirtualenv command. (Again, takes awhile. Be patient.) After you clone a repo, 
+	and create the associated virtualenv, then pin the env to the repo's directory 
+	via virtualenvwrapper's setvitualenvproject command.
 
 
 
@@ -382,17 +453,27 @@
 	
 	Nvidia stresses...
 	
-	"To compile new CUDA applications, a CUDA Toolkit for Linux x86 is needed. CUDA Toolkit support for WSL is still in preview stage as developer tools such as profilers are not available yet. However, CUDA application development is fully supported in the WSL2 environment, as a result, users should be able to compile new CUDA Linux applications with the latest CUDA Toolkit for x86 Linux."
+	"To compile new CUDA applications, a CUDA Toolkit for Linux x86 is needed. 
+	CUDA Toolkit support for WSL is still in preview stage as developer tools such 
+	as profilers are not available yet. However, CUDA application development is 
+	fully supported in the WSL2 environment, as a result, users should be able to 
+	compile new CUDA Linux applications with the latest CUDA Toolkit for x86 Linux."
 	
-	So--basically--you can develop but not compile CUDA apps in WSL...presently. If you attempt to install the toolkit, you'll overwrite the the correct GPU driver. In other words...
+	So--basically--you can develop but not compile CUDA apps in WSL...presently. 
+	If you attempt to install the toolkit, you'll overwrite the the correct GPU 
+	driver. In other words...
 	
 	Users must not install any other NVIDIA GPU Linux driver within WSL 2. 
 	
-	One has to be very careful here as the default CUDA Toolkit comes packaged with a driver, and it is easy to overwrite the WSL 2 NVIDIA driver with the default installation.
+	One has to be very careful here as the default CUDA Toolkit comes packaged 
+	with a driver, and it is easy to overwrite the WSL 2 NVIDIA driver with the 
+	default installation.
 		
 	The RAPIDS installation instructions confusingly suggest:
 	
-	"It’s important to execute sudo apt-get -y install cuda-toolkit instead of sudo apt-get -y install cuda to avoid installing a GPU driver into WSL2. The Windows host system provides the driver to WSL2."
+	"It’s important to execute sudo apt-get -y install cuda-toolkit instead of 
+	sudo apt-get -y install cuda to avoid installing a GPU driver into WSL2. The 
+	Windows host system provides the driver to WSL2."
 	
 	So--your mileage may vary.
 	
@@ -416,7 +497,8 @@
 		
 	If installed correctly, the "nividia-msi" command will work as expected. 
 	
-	The "nvcc --version" command may not work as expected, in which case you may need to update your .bashrc file with the 
+	The "nvcc --version" command may not work as expected, in which case you may 
+	need to update your .bashrc file with the 
 	following export statements...
 		
 		export PATH=/usr/local/cuda/bin:$PATH
@@ -439,9 +521,11 @@
 		wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 		bash Miniconda3-latest-Linux-x86_64.sh
 	
-	Customize Conda and Run the Install. Use the terminal window to finish installation. Nvidia recommends enabling conda-init.
+	Customize Conda and Run the Install. Use the terminal window to finish installation. 
+	Nvidia recommends enabling conda-init.
 
-	If you'd prefer that conda's base environment not be activated on startup, set the auto_activate_base parameter to false:
+	If you'd prefer that conda's base environment not be activated on startup, set 
+	the auto_activate_base parameter to false:
 
 		conda config --set auto_activate_base false
 		
@@ -471,7 +555,11 @@
 
 ## INSTALL RAPIDS (optional)
 
-	NVIDIA RAPIDS is a suite of open-source software libraries that allows data scientists to accelerate data processing and machine learning workloads on GPUs. The suite includes a collection of GPU-accelerated data processing and machine learning algorithms that are designed to take advantage of the massively parallel architecture of NVIDIA GPUs.
+	NVIDIA RAPIDS is a suite of open-source software libraries that allows data 
+	scientists to accelerate data processing and machine learning workloads on GPUs. 
+	The suite includes a collection of GPU-accelerated data processing and machine 
+	learning algorithms that are designed to take advantage of the massively parallel 
+	architecture of NVIDIA GPUs.
 		
 	Make sure to read the docs carefully... 
 	
@@ -483,7 +571,8 @@
 	
 	May not be compatible with some versions of Jupyter.
 
-	RAPIDS also has a few additional dependencies (some of which we installed in an earlier step), including...
+	RAPIDS also has a few additional dependencies (some of which we installed in 
+	an earlier step), including...
 	
 		scipy
 		matplotlib!=3.6.1,>=3.1
@@ -493,7 +582,8 @@
 		numpy<1.24,>=1.18
 		numba
 		
-	If something is missing, when you try to confirm your RAPIDS install, it'll tell you.
+	If something is missing, when you try to confirm your RAPIDS install, it'll 
+	tell you.
 		
 	Provided needed dependencies are installed...
 
@@ -501,7 +591,9 @@
 		pip install cuml-cu11 --extra-index-url=https://pypi.nvidia.com
 		pip install cugraph-cu11 --extra-index-url=https://pypi.nvidia.com
 		
-	cuDF is a Python library that provides a pandas-like DataFrame API on top of Apache Arrow on the GPU. It provides a way to manipulate and analyze large datasets using the power of NVIDIA GPUs.
+	cuDF is a Python library that provides a pandas-like DataFrame API on top of 
+	Apache Arrow on the GPU. It provides a way to manipulate and analyze large datasets 
+	using the power of NVIDIA GPUs.
 		
 	Then...
 	
@@ -530,20 +622,30 @@
 		sudo apt-key del 7fa2af80
 		
 			
-	Configure the system paths. You can do it with following command everytime your start a new terminal after activating your conda environment.
+	Configure the system paths. You can do it with following command everytime your 
+	start a new terminal after activating your conda environment.
 
 		CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))
 		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib
 			
-	For your convenience it is recommended that you automate it with the following commands. The system paths will be automatically configured when you activate this conda environment.
+	For your convenience it is recommended that you automate it with the following 
+	commands. The system paths will be automatically configured when you activate 
+	this conda environment.
 
 		mkdir -p $CONDA_PREFIX/etc/conda/activate.d
 		echo 'CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 		echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 		
-	The activate.d directory--and corollary deactivate.d directory--contain shell scripts that are evoked when environment is activated or deactivated, respectively. The above commands essentially create a shell script within the activate.d directory for the specific Conda environment in which the commands are run...and subsequently permanently set the LD_LIBRARY_PATH env var for the environment.
+	The activate.d directory--and corollary deactivate.d directory--contain shell 
+	scripts that are evoked when environment is activated or deactivated, respectively. 
+	The above commands essentially create a shell script within the activate.d directory 
+	for the specific Conda environment in which the commands are run...and subsequently 
+	permanently set the LD_LIBRARY_PATH env var for the environment.
 		
-	Even more conveniently, you can set this up globally for ALL Conda environs. (I only use Conda for ML / AI work. Pure Python projects and web dev, I'm more inclined to use Pip and Virtualenv / Virtualenvwrapper.) To make sure these env vars are set with the instantiation of each new Conda environment...
+	Even more conveniently, you can set this up globally for ALL Conda environs. 
+	(I only use Conda for ML / AI work. Pure Python projects and web dev, I'm more 
+	inclined to use Pip and Virtualenv / Virtualenvwrapper.) To make sure these 
+	env vars are set with the instantiation of each new Conda environment...
 	
 	Navigate to the miniconda directory...
 	
@@ -551,7 +653,8 @@
 	
 		~/miniconda3/etc/conda/activate.d
 			
-	You can stuff shell scripts in here that will impact every Conda environment, globally--i.e., the "base" Conda env.
+	You can stuff shell scripts in here that will impact every Conda environment, 
+	globally--i.e., the "base" Conda env.
 	
 	Create a global shell script within it...
 	
@@ -562,13 +665,21 @@
 		CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn.__file__)"))
 		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib
 
-	...save the file. Now the necessary env vars for Tensorflow will be set with the creation of every Conda env.
+	...save the file. Now the necessary env vars for Tensorflow will be set with 
+	the creation of every Conda env.
 	
 
 
 ## INSTALL TensorRT (optional)
 
-	TensorRT is a high-performance deep learning inference library developed by NVIDIA. It is designed to optimize and accelerate deep learning inference on NVIDIA GPUs, by providing a framework to optimize deep learning models for deployment in production environments. TensorRT uses a combination of graph optimizations, kernel fusion, and precision calibration to maximize the performance of the deep learning models running on the GPU. It supports popular deep learning frameworks such as TensorFlow, PyTorch, and ONNX, and allows developers to deploy their trained models to edge devices, data centers, and the cloud.
+	TensorRT is a high-performance deep learning inference library developed by 
+	NVIDIA. It is designed to optimize and accelerate deep learning inference on 
+	NVIDIA GPUs, by providing a framework to optimize deep learning models for 
+	deployment in production environments. TensorRT uses a combination of graph 
+	optimizations, kernel fusion, and precision calibration to maximize the performance 
+	of the deep learning models running on the GPU. It supports popular deep learning 
+	frameworks such as TensorFlow, PyTorch, and ONNX, and allows developers to deploy 
+	their trained models to edge devices, data centers, and the cloud.
 
 	See the following...
 	
@@ -607,7 +718,10 @@
 	
 		https://www.tensorflow.org/install/pip
 
-	Note: Do NOT install into your environ via Pip. Use Conda! Create a new environ leveraging the Python and CUDA versions you've installed globally thus far, then install correspondingly fresh Jupyter, Tensorflow, and cuDNN libs into the specific environ.
+	Note: Do NOT install into your environ via Pip. Use Conda! Create a new environ 
+	leveraging the Python and CUDA versions you've installed globally thus far, 
+	then install correspondingly fresh Jupyter, Tensorflow, and cuDNN libs into 
+	the specific environ.
 
 	Doublecheck versions of required dependencies, then...
 	
@@ -621,7 +735,8 @@
 
 	Check to see if the appropriate Nvidia drivers are installed...
 	
-	In Windows check under C:\Windows\System32\lxss\lib if the CUDA libs are missing:
+	In Windows check under C:\Windows\System32\lxss\lib if the CUDA libs are 
+	missing:
 
     Directory: C:\Windows\System32\lxss\lib
 
@@ -644,3 +759,21 @@
 		-a---          11/23/2022  1:11 AM          68560 libnvoptix.so.1
 		-a---          11/23/2022  1:11 AM       60186056 libnvwgf2umx.so
 		-a---          11/23/2022  1:11 AM         630224 nvidia-smi
+
+
+	## TODO
+
+	The Troubleshooting section could use some more tips. Feel free to contribute.
+
+	Some laptop manufacturers create machines expressly for AI and ML and have
+	their own images and/or software stacks pre-installed. (For example: Lambda
+	Stack on Lambda's Tensorbook laptops.)
+
+	Similarly, I'd love to have a single Makefile that installs all these at once 
+	on a brand spanking new box... Or a Cloudformaton or Terraform script that 
+	does likewise for an applicance in the cloud. Of course, a container is probably 
+	the easier and saner solution, but I think it's an important exercise to be 
+	able to set up and tweak dependencies on bare metal if necessary--i.e., one's 
+	local environment sans Docker.
+
+	Feel free to point me to a Docker image with all the above ready to rock.
