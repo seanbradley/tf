@@ -91,7 +91,9 @@ become more salient as you install each.
 
 * For Windows version:
 
+```
 Just use "About your PC"
+```
 
 * For Ubuntu version (on WSL):
 
@@ -184,7 +186,7 @@ if / else statement...
 import tensorflow as tf
 
 if tf.config.list_physical_devices('GPU'):    
-print("Tensorflow is using a GPU")
+    print("Tensorflow is using a GPU")
 else: 
 	print("Tensorflow is not using a GPU")
 ```
