@@ -45,9 +45,29 @@ RTX GPU chip with Windows as the sole operating system.
 * A nominal degree of comfort with tweaking Windows and/or Ubuntu from the 
 command line
 * VSCode for the IDE
-* Familiarity with Python, Bash, and Git
+* Familiarity with Python, Bash, Git, Virtual Environments, Pip, and Conda
 
-The gear I used...
+I provide some orienting or explanatory comments for non-technical folks in this
+repo when convenient to do so.
+
+Commentary is not provided for the essential features of Python, nor Virtual 
+Environments, Pip, or Conda. I do write a few words about Git and Github later 
+in this README file.
+
+* Python as you probably already know is a programming language.
+
+* Virtual Environments cordon off and separate your base system from installed 
+requirements. If your installation goes sideways, you can tear it down with no 
+impact to other environments or to the operating system.
+
+* Bash is, essentially, the lanaguage used in the command prompt (aka terminal).
+
+* Pip is a Python package management utility.
+
+* Conda manages not only packages, but environments, too. With Conda, you can do
+what was earlier handled by Virtual Environments and Pip. 
+
+The gear I used when following these instructions...
 
 * Windows 11
 * Processor: 12th Gen Intel(R) Core(TM) i7-12700H   2.70 GHz
@@ -323,7 +343,31 @@ AND
 
 ## INSTALL AND CONFIGURE GIT
 
-Git is an essential utility for 
+Code exists as a document or file, or a bunch of documents or files. Sometimes, 
+you share that document with other people. Whether you are creating HTML (as a
+.html file), or Python (as a .py file), or PHP (as a .php file), or whatever.
+
+Subsequently, like any document or file, you sometimes want to remember what the 
+different versions of the document on which you are working--before or after you 
+(or anyone with whom you are collaborating with) have made changes to it.
+
+In other words, you need _version control_.
+
+Git is an essential utility for doing exactly that with code. Github is
+a website that serves, essentially, as a vault for your code, and interface to 
+the log of changes to your code. Git and Github allow you to see who has done
+what and when to your code...to each document or file of the code.
+
+This README file lives on my laptop at home (my local environment) and in this 
+Github repository (aka "repo") accessible via the URL in your browser's address
+bar. A repo, as hinted, is a kind of code vault. Some are public (like this one),
+and anyone can see it through their browser. Some are private, and special
+permissions are required to access those.
+
+Signing up for Github is easy. Just go to github.com and register.
+
+Installing Git--the version control utility--on your local computer is a bit
+more intricate...
 
 ***...on Windows***
 
@@ -351,9 +395,9 @@ sudo apt install git-all
 Once installed, you'll need configure Git via the git config command, as well
 as set up .ssh between your remote origin and your local repo.
 
-This is relatively standard practice, and easy enough to learn how to do via 
-Google and/or StackOverflow. For purposes of concision, not including those 
-instructions here.)
+Doing so is relatively standard practice, and easy enough to learn how to do via 
+Google and/or StackOverflow. For purposes of concision, how to configure Git 
+once installed is not included here.
 
 If you're truly high speed, you'll want to install Git Flow...
 
@@ -606,7 +650,7 @@ Nvidia recommends at least Miniconda to use their RAPIDs interface for ML / AI.
 [Understanding the difference between Pip, Virtualenv, Conda, and Miniconda](https://deeplearning.lipingyang.org/2018/12/23/anaconda-vs-miniconda-vs-virtualenv/)
 
 
-***...in Ubuntu***
+***...on Ubuntu***
 
 ```
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -688,7 +732,7 @@ tell you.
 
 Provided needed dependencies are installed...
 
-***...in Ubuntu***
+***...on Ubuntu***
 
 ```
 pip install cudf-cu11 dask-cudf-cu11 --extra-index-url=https://pypi.nvidia.com
@@ -723,7 +767,7 @@ CAUTION: DO NOT INSTALL REGULAR DRIVERS...
 
 Installation...
 
-***...in Ubuntu***
+***...on Ubuntu***
 
 ```
 pip install nvidia-cudnn-cu11==8.6.0.163
@@ -807,7 +851,7 @@ their trained models to edge devices, data centers, and the cloud.
 
 Installation...
 
-***...in Ubuntu***
+***...on Ubuntu***
 
 ```
 pip install --upgrade setuptools pip
@@ -854,7 +898,7 @@ the specific environ.
 
 Doublecheck versions of required dependencies, then...
 
-***...in Ubuntu***
+***...on Ubuntu***
 
 ```
 pip install tensorflow==2.12.0
