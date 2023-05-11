@@ -86,8 +86,8 @@ And...
 ## CONFIRMING VERSIONS AND INSTALLATIONS
 
 The following bullets suggest HOW to check versioning or to confirm installation 
-of the respective resources and/or dependencies as you proceed. These items will
-become more salient as you install each.
+of the respective resources, libraries, or dependencies as you proceed. These items 
+will become more salient as you install each.
 
 * For Windows version:
 
@@ -208,9 +208,9 @@ getting things set-up on Ubuntu in WSL.
 Only the directory for virtualenv artifacts remains the same across both operating 
 systems. (I'm not certain if that's actually ideal. Probably not.)
 
-The workon command used via virtualenvwrapper will only work in Ubuntu (WSL) 
-~after~ the first environment is created. That is: in Ubuntu, if memory serves 
-correctly, you must first evoke the mkvirtualenv command before workon will 
+The _workon_ command used via virtualenvwrapper will only work in Ubuntu (WSL) 
+after the first environment is created. That is: in Ubuntu, if memory serves 
+correctly, you must first evoke the _mkvirtualenv_ command before _workon_ will 
 return anything at all.
 
 If you create a virtualenv in Ubuntu, evoke it only from Ubuntu. If you try 
@@ -237,7 +237,7 @@ mkvirtualenv test
 
 ## INSTALL UBUNTU ON WSL
 
-...on Windows (via the Windows Store)
+***...on Windows (via the Windows Store)***
 
 First: go to "Turn Windows features on or off".
 
@@ -325,7 +325,7 @@ AND
 
 Git is an essential utility for 
 
-...on Windows
+***...on Windows***
 
 [Install Git](https://git-scm.com/download/win) 
 
@@ -342,7 +342,7 @@ scoop install posh-git
 Add-PoshGitToProfile -AllUsers -AllHosts	
 ```
 
-...on Ubuntu
+***...on Ubuntu***
 
 ```
 sudo apt install git-all
@@ -384,7 +384,7 @@ browser for data exploration, prototyping, collaboration, and documentation.
 (You might also want to install Scikit-Learn. We do so in these docs via the 
 RAPIDS installation.)
 
-...on Ubuntu
+***...on Ubuntu***
 
 ```
 sudo apt install python3 python3-pip python3-venv ipython3
@@ -402,7 +402,7 @@ pip install black isort
 
 (FWIW: Python3 comes out of the box / batteries included on Ubuntu.)
 
-...on Windows
+***...on Windows***
 
 Install Python on Ubuntu first--in the usual way. Once that's done, check the 
 version on Ubuntu...
@@ -422,13 +422,13 @@ Adjust the PATH env var in Windows accordingly.
 
 ...etc.
 
-Install Numpy etc. only if req'd for your use case.
+Install Numpy etc. on Windows only if req'd for your use case.
 
 
 
 ## FYI: THE PYTHON PATH
 
-...on Windows
+***...on Windows***
 
 ```
 C:\Users\<username>\AppData\Local\Programs\Python\Python310
@@ -471,7 +471,7 @@ Caveat: creating a new env from within Ubuntu will be very slow.
 
 Advantage: no need to .gitignore envs; simply pip freeze requirements.
 
-...on Windows
+***...on Windows***
 
 ```
 pip install virtualenv virtualenvwrapper-win
@@ -493,7 +493,7 @@ function workon ($env) {
 }
 ```
 
-...on Ubuntu
+***...on Ubuntu***
 
 [About Virtualenvwrapper](https://opensource.com/article/21/2/python-virtualenvwrapper)
 
@@ -572,6 +572,9 @@ Install CUDA on WSL...
 
 [Confirm the correct CUDA version here](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_local)
 
+
+***...on Ubuntu***
+
 ```
 wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
 sudo mv cuda-wsl-ubuntu.pin /etc/apt/preferences.d/cuda-repository-pin-600
@@ -602,7 +605,8 @@ Nvidia recommends at least Miniconda to use their RAPIDs interface for ML / AI.
 
 [Understanding the difference between Pip, Virtualenv, Conda, and Miniconda](https://deeplearning.lipingyang.org/2018/12/23/anaconda-vs-miniconda-vs-virtualenv/)
 
-Install Miniconda (in Ubuntu)...
+
+***...in Ubuntu***
 
 ```
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -684,6 +688,8 @@ tell you.
 
 Provided needed dependencies are installed...
 
+***...in Ubuntu***
+
 ```
 pip install cudf-cu11 dask-cudf-cu11 --extra-index-url=https://pypi.nvidia.com
 pip install cuml-cu11 --extra-index-url=https://pypi.nvidia.com
@@ -716,6 +722,8 @@ CAUTION: DO NOT INSTALL REGULAR DRIVERS...
 [Nvidia docs for installing cuDNN](https://developer.nvidia.com/cudnn)
 
 Installation...
+
+***...in Ubuntu***
 
 ```
 pip install nvidia-cudnn-cu11==8.6.0.163
@@ -799,6 +807,8 @@ their trained models to edge devices, data centers, and the cloud.
 
 Installation...
 
+***...in Ubuntu***
+
 ```
 pip install --upgrade setuptools pip
 pip install nvidia-pyindex
@@ -843,6 +853,8 @@ then install correspondingly fresh Jupyter, Tensorflow, and cuDNN libs into
 the specific environ.
 
 Doublecheck versions of required dependencies, then...
+
+***...in Ubuntu***
 
 ```
 pip install tensorflow==2.12.0
