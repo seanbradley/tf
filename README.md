@@ -6,20 +6,36 @@
 	that rely on one another--is extremely important, and things fall out of sync 
 	easily. Things are even more non-standard / experimental with regard to leveraging 
 	these tools on WSL.
+
+	These instructions are for anyone interested in playing with the various
+	libraries and frameworks for AI, ML, and Deep Learning on a consumer box
+	with only one GPU running Windows as the underlying OS. If you're training
+	large models, you'll likely be somewhat hamstrung if this is the only way 
+	you go about it. Leveraging Google Colab or Hugging Face would probably be
+	a smarter way to go about it.
+
+	Interestingly, however, everyday, newer pre-trained models with smaller 
+	memory footprints are being released so having the option of playing with and
+	tweaking these on your localhost seems useful.
 	
 	Where salient, I've included links for the installation of each respective tool, 
-	but I expect instructions within any of these to essentially inadvertantly suggest 
-	things that will break if you follow them blindly--due to aforementioned breaking 
-	changes to hardware and software versioning.
+	but I expect instructions for installing any particular library or framework
+	will likely inadvertently break in relatively short order due to the velocity
+	of change in this domain of tech. Hence, these instructions should not be followed 
+	blindly. Your ingenuity will likely be required to see your way through to the
+	end...to a functional development environment.
 	
-	DISCLAIMER: since WSL2 is rather new and still experimental, and not generally 
-	considered as straightforward or robust for AI / ML development as a native, 
-	bare metal, non-virtualized Ubuntu environment, I cannot guarantee the following 
-	will work exactly as you might hope.
+	DISCLAIMER: Since WSL2 is rather new and still somewhat experimental, and not
+	generally considered as straightforward or robust for AI / ML development as 
+	a native, truly bare metal, non-virtualized Ubuntu environment, I cannot guarantee 
+	the following will work exactly as you might hope. Things herein worked as of
+    of May 2023.
 	
-	I ran the following on a high-performance gaming laptop with a Nvidia GeForce 
-	RTX GPU chip with Windows as the sole operating system. I wanted the convenience 
-	of not having to reboot to take advantage of a dual boot set up. 
+	ASSUMPTIONS: A high-performance gaming laptop with a single Nvidia GeForce 
+	RTX GPU chip with Windows as the sole operating system. 
+	
+	REASON: Dual booting set-ups are a bit of a pain. WSL seems like a convenient
+	compromise. Remains to be seen.
 	
 	The gear I used...
 	
@@ -41,15 +57,27 @@
 	
 	End to end, the following will get you part of the way there...
 
-		https://towardsdatascience.com/how-to-create-perfect-machine-learning-development-environment-with-wsl2-on-windows-10-11-2c80f8ea1f31
+		[How To Create the Perfect Machine Learning Environment]
+
+		(https://towardsdatascience.com/how-to-create-perfect-machine-learning-development-environment-with-wsl2-on-windows-10-11-2c80f8ea1f31)
 		
 	Some good notes here...
+
+		[A Useful Gist on Github]
 	
-		https://gist.github.com/Ayke/5f37ebdb84c758f57d7a3c8b847648bb
+		(https://gist.github.com/Ayke/5f37ebdb84c758f57d7a3c8b847648bb)
 	
 	See here also...
 	
-		https://docs.nvidia.com/deeplearning/cudnn/support-matrix/index.html#cudnn-cuda-hardware-versions
+		[A Detailed Rubric of Requirements from Nvidia]
+
+		(https://docs.nvidia.com/deeplearning/cudnn/support-matrix/index.html#cudnn-cuda-hardware-versions)
+
+	And...
+
+		[A Table of Compatible Dependencies for TensorFlow from Nvidia]
+		
+		(https://www.tensorflow.org/install/source#linux)
 
 	
 	
@@ -109,20 +137,18 @@
 		
 	* For Tensorflow:
 					
-		Table of compatible dependencies here:
+
+		The following commands can be executed in the Python interpretor or 
+		a Juptyer Notebook only after activating the virtualenv into which 
+		TensorFlow was installed...
+	
+		Verify CPU set-up...
 		
-			https://www.tensorflow.org/install/source#linux
-			The following commands can be executed in the Python interpretor or 
-			a Juptyer Notebook only after activating the virtualenv into which 
-			TensorFlow was installed...
+			python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+			
+		Verify GPU set-up...
 		
-			Verify CPU set-up...
-			
-				python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
-				
-			Verify GPU set-up...
-			
-				python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+			python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 				
 		Or you return a more simple confirmation via running the following Python 
 		if / else statement...
@@ -244,15 +270,19 @@
 	the following link for ancillary purposes. You'll need it eventually.
 	
 	
-		https://www.docker.com/products/docker-desktop/ AND https://docs.docker.com/desktop/windows/wsl/)
+		https://www.docker.com/products/docker-desktop/ 
+		
+		AND 
+		
+		https://docs.docker.com/desktop/windows/wsl/)
 
 
 
 ## CONFIGURE VSCODE (Windows; possibly optional)...
 	
-	Install Code Remote Development Pack...
+	[Install VSCode Remote Development Pack]
 	
-		https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
+	(https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
 
 
 
@@ -260,18 +290,18 @@
 
 	...on Windows
 	
-		Install Git 
+		[Install Git] 
 		
-			https://git-scm.com/download/win) 
+		(https://git-scm.com/download/win) 
 			
 		You may need to update your PATH. Confirm where the executable installed 
 		first:
 		
 			PATH = C:\Users\<username>\AppData\Local\GitHub\PortableGit_<guid>\cmd\git.exe
 			
-		Optional: Posh-Git 
+		Optional: [Posh-Git] 
 		
-			https://github.com/dahlbyk/posh-git
+			(https://github.com/dahlbyk/posh-git)
 			
 			scoop bucket add extras
 			scoop install posh-git
@@ -374,7 +404,9 @@
 	There are several utils and/or ways of managing things when you have multiple 
 	versions of Python installed on your system. One such solution is here:
 
-		https://www.fosslinux.com/39384/switching-between-python-2-and-3-versions-on-ubuntu-20-04.htm
+	[Switching Between Python 2 and 3 on Ubuntu]
+
+	(https://www.fosslinux.com/39384/switching-between-python-2-and-3-versions-on-ubuntu-20-04.htm)
 
 
 
@@ -413,9 +445,15 @@
 			}
 
 	...on Ubuntu
+
+		[About Virtualenvwrapper]
 	
-			https://opensource.com/article/21/2/python-virtualenvwrapper
-			https://sachinjose31.medium.com/virtual-environments-with-virtualenvwrapper-for-windows-c535c2a0de8c 
+		(https://opensource.com/article/21/2/python-virtualenvwrapper)
+
+		
+		[Installing Virtualenvwrapper on Windows]
+
+		(https://sachinjose31.medium.com/virtual-environments-with-virtualenvwrapper-for-windows-c535c2a0de8c)
 
 			pip install virtualenvwrapper
 			cd ~
@@ -442,14 +480,18 @@
 
 	See the following...
 
-		https://docs.nvidia.com/cuda/wsl-user-guide/index.
+	[Nvidia CUDA on WSL User Guide]
+
+	(https://docs.nvidia.com/cuda/wsl-user-guide/index)
 
 		
 ### IMPORTANT:
 	
 	Read this carefully...
 	
-		https://docs.nvidia.com/cuda/wsl-user-guide/index.html#cuda-support-for-wsl2
+	[Nvidia CUDA Support for WSL]
+	
+	{https://docs.nvidia.com/cuda/wsl-user-guide/index.html#cuda-support-for-wsl2}
 	
 	Nvidia stresses...
 	
@@ -481,11 +523,15 @@
 	
 	Download and install the correct driver...
 
-		https://www.nvidia.com/Download/index.aspx#
+		[Find the correct Nvidia driver for your system here]
+	
+		(https://www.nvidia.com/Download/index.aspx#)
 		
 	Install CUDA on WSL...
 	
-		https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_local
+		[Confirm the correct CUDA version here]
+
+		(https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_local)
 		
 		wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
 		sudo mv cuda-wsl-ubuntu.pin /etc/apt/preferences.d/cuda-repository-pin-600
@@ -512,9 +558,9 @@
 	
 	Nvidia recommends at least Miniconda to use their RAPIDs interface for ML / AI.
 
-	Understanding the difference between Pip, Virtualenv, Conda, and Miniconda...
+	[Understanding the difference between Pip, Virtualenv, Conda, and Miniconda...]
 
-		https://deeplearning.lipingyang.org/2018/12/23/anaconda-vs-miniconda-vs-virtualenv/
+		(https://deeplearning.lipingyang.org/2018/12/23/anaconda-vs-miniconda-vs-virtualenv/)
 		
 	Install Miniconda (in Ubuntu)...
 	
@@ -562,8 +608,10 @@
 	architecture of NVIDIA GPUs.
 		
 	Make sure to read the docs carefully... 
-	
-		https://docs.rapids.ai/install#WSL2
+
+	[Official Nvidia Docs for RAPIDS on WSL]
+
+	(https://docs.rapids.ai/install#WSL2)
 
 	The following RAPIDS packages are not compatible with Tensorflow packages on Pip. 
 	
@@ -601,9 +649,9 @@
 	
 	The standard docs articulate how to triage potential error messages.
 	
-	Standard docs are here:
+	[Standard docs are here]
 	
-		https://docs.rapids.ai/user-guide
+	(https://docs.rapids.ai/user-guide)
 		
 
 
@@ -612,8 +660,13 @@
 
 	CAUTION: DO NOT INSTALL REGULAR DRIVERS...
 	
-		https://towardsdatascience.com/how-to-finally-install-tensorflow-gpu-on-windows-10-63527910f255
-		https://developer.nvidia.com/cudnn
+	[Review these docs about installing TensorFlow on Windows]
+	
+	(https://towardsdatascience.com/how-to-finally-install-tensorflow-gpu-on-windows-10-63527910f255)
+
+	[Nvidia docs for installing cuDNN]
+
+	(https://developer.nvidia.com/cudnn)
 		
 	Installation...
 	
@@ -681,9 +734,9 @@
 	frameworks such as TensorFlow, PyTorch, and ONNX, and allows developers to deploy 
 	their trained models to edge devices, data centers, and the cloud.
 
-	See the following...
-	
-		https://docs.nvidia.com/deeplearning/tensorrt/archives/tensorrt-723/install-guide/index.html#installing-pip:
+	[Nvidia docs for installing TensorRT]
+
+	(https://docs.nvidia.com/deeplearning/tensorrt/archives/tensorrt-723/install-guide/index.html#installing-pip)
 	
 	Installation...
 	
@@ -708,15 +761,16 @@
 	
 	...or with recommended automation:
 	
-		echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/python3.8/site-packages/tensorrt/' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-					export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/python3.8/site-packages/tensorrt/
+		echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/python3.8/site-packages/tensorrt/' \
+		>> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
+		export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/python3.8/site-packages/tensorrt/
 
 
 ## INSTALL TensorFlow
 
-	At this point, let Google's install instructions take the lead...
+	At this point, let [Google's install instructions] take the lead.
 	
-		https://www.tensorflow.org/install/pip
+	(https://www.tensorflow.org/install/pip)
 
 	Note: Do NOT install into your environ via Pip. Use Conda! Create a new environ 
 	leveraging the Python and CUDA versions you've installed globally thus far, 
@@ -766,14 +820,19 @@
 	The Troubleshooting section could use some more tips. Feel free to contribute.
 
 	Some laptop manufacturers create machines expressly for AI and ML and have
-	their own images and/or software stacks pre-installed. (For example: Lambda
-	Stack on Lambda's Tensorbook laptops.)
+	their own images and/or software stacks pre-installed. For example: [Lambda
+	Stack], makers of the Tensorbook laptops.
 
-	Similarly, I'd love to have a single Makefile that installs all these at once 
-	on a brand spanking new box... Or a Cloudformaton or Terraform script that 
-	does likewise for an applicance in the cloud. Of course, a container is probably 
-	the easier and saner solution, but I think it's an important exercise to be 
-	able to set up and tweak dependencies on bare metal if necessary--i.e., one's 
-	local environment sans Docker.
+	(https://lambdalabs.com/lambda-stack-deep-learning-software)
 
-	Feel free to point me to a Docker image with all the above ready to rock.
+	Similarly, I'd love to have a single Makefile that manages all the libraries 
+	and frameworks outlined in this README for easy custom install on a brand 
+	spanking new box... Or a Cloudformaton or Terraform script that 
+	does likewise for an applicance in the cloud. 
+	
+	Of course, a container is the easier and saner solution--particularly for
+	production workflows--but I think the exercise of installing, configuring,
+	and working through the gotchas inherent in so many dependencies when getting
+	up and running on bare metal--there's some value to that.
+
+	Feel free to point me to other Docker images with all the above ready to rock.
