@@ -1,22 +1,24 @@
 # SETTING UP A WINDOWS MACHINE WITH WSL2 (WINDOWS SUBSYSTEM FOR LINUX) FOR A.I. AND DEEP LEARNING
 
-The utilities for AI and ML are constantly evolving and changing.
-
-Versioning alignment between dependencies--i.e., between tools and libraries 
-that rely on one another--is extremely important, and things fall out of sync 
-easily. Things are even more non-standard / experimental with regard to leveraging 
-these tools on WSL.
 
 These instructions are for anyone interested in playing with the various
 libraries and frameworks for AI, ML, and Deep Learning on a consumer box
 with only one GPU running Windows as the underlying OS. If you're training
 large models, you'll likely be somewhat hamstrung if this is the only way 
 you go about it. Leveraging Google Colab or Hugging Face would probably be
-a smarter way to go about it.
+a smarter way to roll.
 
 Interestingly, however, everyday, newer pre-trained models with smaller 
 memory footprints are being released so having the option of playing with and
-tweaking these on your localhost seems useful.
+tweaking these on your localhost seems useful--for educational purposes if nothing
+else.
+
+The utilities for AI and ML are constantly evolving and changing.
+
+Versioning alignment between dependencies--i.e., between tools and libraries 
+that rely on one another--is extremely important, and things fall out of sync 
+easily. Things are even more non-standard / experimental with regard to leveraging 
+these tools on WSL.
 
 Where salient, I've included links for the installation of each respective tool, 
 but I expect instructions for installing any particular library or framework
@@ -30,7 +32,9 @@ WSL has made some strides as of late, and Microsoft seems to be the present
 leader in consumer-level A.I. Hopefully, getting cozy with these utils in a
 Windows environment makes interfacing with Azure a bit easier.
 
-DISCLAIMER: 
+If you're interested in virtualization, relevant links are provided at the end.
+
+## DISCLAIMER
 
 Since WSL2 is rather new and still somewhat experimental, and not
 generally considered as straightforward or robust for AI / ML development as 
@@ -38,34 +42,35 @@ a native, truly bare metal, non-virtualized Ubuntu environment, I cannot guarant
 the following will work exactly as you might hope. Things herein worked as of
 of May 2023.
 
-ASSUMPTIONS: 
+## ASSUMPTIONS
 
 * A high-performance gaming laptop with a single Nvidia GeForce 
 RTX GPU chip with Windows as the sole operating system.
 * A nominal degree of comfort with tweaking Windows and/or Ubuntu from the 
 command line
 * VSCode for the IDE
-* Familiarity with Python, Bash, Git, Virtual Environments, Pip, and Conda
+* Basic familiarity with Python, Bash, Git, Virtual Environments, Pip, and Conda
+
+### TERMINOLOGY
 
 I provide some orienting or explanatory comments for non-technical folks in this
 repo when convenient to do so.
 
 Commentary is not provided for the essential features of Python, nor Virtual 
-Environments, Pip, or Conda. I do write a few words about Git and Github later 
-in this README file.
-
-* Python as you probably already know is a programming language.
+Environments, Pip, and Conda. I do write a few words about Git and Github later 
+in this README file. But to orient non-technical folks and/or those new to the
+craft who may read this...
 
 * Virtual Environments cordon off and separate your base system from installed 
 requirements. If your installation goes sideways, you can tear it down with no 
 impact to other environments or to the operating system.
 
-* Bash is, essentially, the lanaguage used in the command prompt (aka terminal).
-
 * Pip is a Python package management utility.
 
 * Conda manages not only packages, but environments, too. With Conda, you can do
 what was earlier handled by Virtual Environments and Pip. 
+
+### HARDWARE
 
 The gear I used when following these instructions...
 
@@ -73,17 +78,17 @@ The gear I used when following these instructions...
 * Processor: 12th Gen Intel(R) Core(TM) i7-12700H   2.70 GHz
 * Memory: 1TB plus 16.0 GB RAM
 
-The following were successfully installed via these instructions...
+### SOFTWARE
+
+The following will be installed via these instructions...
 
 * Python version = 3.10.6
 * CUDA version = 12.1.66
 * RAPIDS
 * TensorRT version = 8.6.1
 * Tensorflow version = 2.12.0
-	
-	
-	
-## ADD'L DOCUMENTATION
+
+### ADD'L DOCUMENTATION
 
 End to end, the following will get you part of the way there...
 
@@ -101,15 +106,14 @@ And...
 
 [A Table of Compatible Dependencies for TensorFlow from Nvidia](https://www.tensorflow.org/install/source#linux)
 
-
-
 ## CONFIRMING VERSIONS AND INSTALLATIONS
 
-The following bullets suggest HOW to check versioning or to confirm installation 
-of the respective resources, libraries, or dependencies as you proceed. These items 
-will become more salient as you install each.
+The following bullets and/or commands provide HOW to confirm installation of the 
+respective resources, libraries, or dependencies herein, and/or HOW to check their 
+versioning as you proceed. These items will become more salient as you install each.
 
-* For Windows version:
+
+* Windows version:
 
 ```
 Just use "About your PC"
@@ -181,7 +185,7 @@ python3 -c "import cudf; print(cudf.Series([1, 2, 3]))"
 python3 -c "import tensorrt; print(tensorrt.__version__); assert tensorrt.Builder(tensorrt.Logger())"	
 ```
 
-* For Tensorflow:		
+* For Tensorflow:
 
 The following commands can be executed in the Python interpretor or 
 a Juptyer Notebook only after activating the virtualenv into which 
@@ -211,8 +215,7 @@ else:
 	print("Tensorflow is not using a GPU")
 ```
 
-
-## BE MINDFUL OF THE OS IN WHICH YOU ARE WORKING
+### BE MINDFUL OF THE OS IN WHICH YOU ARE WORKING
 
 The following instructions essentially guide you through the installation of 
 two different versions of Python, two different versions of Pip, and two different 
@@ -253,9 +256,13 @@ Not simply the more generic name:
 mkvirtualenv test
 ```
 
+## STEP 1: CONFIGURE YOUR IDE (optional)
 
+These instructions assume VSCode.
 
-## INSTALL UBUNTU ON WSL
+[Install VSCode Remote Development Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
+
+## STEP 2: INSTALL UBUNTU ON WSL
 
 ***...on Windows (via the Windows Store)***
 
@@ -319,29 +326,7 @@ definition in the windows profile settings as follows. However, YMMV...
 	}
 ```
 
-
-
-## VIRTUALIZATION (Windows)...
-
-NOTE: We are not leveraging Docker for Tensorflow in these instructions. I am 
-including the following links for ancillary purposes. You'll need it eventually.
-The following sets up Docker Desktop...
-
-[Docker Desktop](https://www.docker.com/products/docker-desktop/)
-
-AND 
-
-[Docker Desktop on WSL](https://docs.docker.com/desktop/windows/wsl/)
-
-
-
-## CONFIGURE VSCODE (Windows; possibly optional)...
-
-[Install VSCode Remote Development Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
-
-
-
-## INSTALL AND CONFIGURE GIT
+## STEP 3: INSTALL AND CONFIGURE GIT
 
 Code exists as a document or file, or a bunch of documents or files. Sometimes, 
 you share that document with other people. Whether you are creating HTML (as a
@@ -405,8 +390,7 @@ If you're truly high speed, you'll want to install Git Flow...
 sudo apt install git-flow
 ```
 
-
-## INSTALL PANDAS, NUMPY, SCIPY, MATPLOTLIB, JUPYTERLAB
+## STEP 4: INSTALL PANDAS, NUMPY, SCIPY, MATPLOTLIB, AND JUPYTERLAB
 
 What is this stuff?
 
@@ -468,9 +452,7 @@ Adjust the PATH env var in Windows accordingly.
 
 Install Numpy etc. on Windows only if req'd for your use case.
 
-
-
-## FYI: THE PYTHON PATH
+### FYI: THE PYTHON PATH
 
 ***...on Windows***
 
@@ -498,8 +480,7 @@ versions of Python installed on your system. One such solution is here:
 [Switching Between Python 2 and 3 on Ubuntu](https://www.fosslinux.com/39384/switching-between-python-2-and-3-versions-on-ubuntu-20-04.htm)
 
 
-
-## SET UP VIRTUALENV AND VIRTUALENVWRAPPER
+## STEP 5: SET UP VIRTUALENV AND VIRTUALENVWRAPPER
 
 VSCode's setting for virtual environment directories out of the box is the 
 project directory: ${workspaceFolder}/.env
@@ -566,8 +547,7 @@ and create the associated virtualenv, then pin the env to the repo's directory
 via virtualenvwrapper's setvitualenvproject command.
 
 
-
-## INSTALL CUDA ON WSL
+## STEP 6: INSTALL CUDA ON WSL
 
 See the following...
 
@@ -641,7 +621,7 @@ export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 ```
 
 
-## INSTALL MINICONDA
+## STEP 7: INSTALL MINICONDA
 
 I prefer using Virtualenv for standard Python projects.
 
@@ -700,7 +680,7 @@ conda config --set solver libmamba
 ```
 
 
-## INSTALL RAPIDS (optional)
+## STEP 8: INSTALL RAPIDS (optional)
 
 NVIDIA RAPIDS is a suite of open-source software libraries that allows data 
 scientists to accelerate data processing and machine learning workloads on GPUs. 
@@ -755,8 +735,7 @@ The standard docs articulate how to triage potential error messages.
 [Standard docs are here](https://docs.rapids.ai/user-guide)
 
 
-
-## INSTALL cuDNN
+## STEP 9: INSTALL cuDNN
 
 
 CAUTION: DO NOT INSTALL REGULAR DRIVERS...
@@ -835,8 +814,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib
 the creation of every Conda env.
 
 
-
-## INSTALL TensorRT (optional)
+## STEP 10: INSTALL TensorRT (optional)
 
 TensorRT is a high-performance deep learning inference library developed by 
 NVIDIA. It is designed to optimize and accelerate deep learning inference on 
@@ -887,7 +865,7 @@ echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/python3.8/site-p
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/python3.8/site-packages/tensorrt/
 ```
 
-## INSTALL TensorFlow
+## STEP 11: INSTALL TensorFlow
 
 At this point, let [Google's install instructions](https://www.tensorflow.org/install/pip) take the lead.
 
@@ -936,9 +914,22 @@ Directory: C:\Windows\System32\lxss\lib
 	-a---          11/23/2022  1:11 AM         630224 nvidia-smi
 ```
 
-## TODO
-
 The Troubleshooting section could use some more tips. Feel free to contribute.
+
+
+## VIRTUALIZATION (Windows)...
+
+NOTE: Docker for Tensorflow is not leveraged in these instructions. I am 
+including the following links for ancillary purposes. You'll likely eventually
+need to cozy up to using Docker eventually.
+
+[Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+AND 
+
+[Docker Desktop on WSL](https://docs.docker.com/desktop/windows/wsl/)
+
+OTHER OPTIONS:
 
 Some laptop manufacturers create machines expressly for AI and ML and have
 their own images and/or software stacks pre-installed. For example: 
@@ -956,3 +947,11 @@ and working through the gotchas inherent in so many dependencies when getting
 up and running on bare metal--there's some value to that.
 
 Feel free to point me to other Docker images with all the above ready to rock.
+
+## LICENSE
+
+Okay to use with attribution.
+
+## QUESTIONS / COMMENTS / SUPPORT
+
+sean@blogblimp.com
