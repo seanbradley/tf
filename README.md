@@ -609,7 +609,7 @@ sudo apt-get update
 sudo apt-get -y install cuda
 ```
 
-If installed correctly, the "nividia-msi" command will work as expected. 
+If installed correctly, the "nvidia-smi" command will work as expected. 
 
 The "nvcc --version" command may not work as expected, in which case you may 
 need to update your .bashrc file with the 
@@ -619,6 +619,25 @@ following export statements...
 export PATH=/usr/local/cuda/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
 ```
+
+If, by chance, you later on overwrite the driver, re-install. You may need to do some additional troubleshooting. You can try the following...
+
+```
+cp /usr/lib/wsl/lib/nvidia-smi /usr/bin/nvidia-smi
+chmod ogu+x /usr/bin/nvidia-smi
+```
+
+See here for add'l info: https://docs.nvidia.com/cuda/wsl-user-guide/index.html#known-limitations
+
+Or...
+
+Add /mnt/c/Windows/System32/lxss/lib to LD_LIBRARY_PATH as below:
+
+```
+export LD_LIBRARY_PATH=/mnt/c/Windows/System32/lxss/lib:$LD_LIBRARY_PATH
+```
+
+NB! The lxss lib path must be before the other lib paths.
 
 
 ## STEP 7: INSTALL MINICONDA
